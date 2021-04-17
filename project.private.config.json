@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -14,6 +15,13 @@
         {
           "name": "智能单插",
           "pathName": "pages/home_center/common_panel/index",
+          "query": "device_id=vdevo161850018341588&device_name=v-vdevo",
+          "scene": null
+        },
+        {
+          "name": "面板列表",
+          "pathName": "pages/home_center/device_list/index",
+          "query": "",
           "scene": null
         }
       ]

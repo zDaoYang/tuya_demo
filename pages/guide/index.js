@@ -33,8 +33,8 @@ Page({
    */
   onLoad: async function (options) {
     const { cloudInner } = this.data;
-    const { miniProgram } = wx.getAccountInfoSync();
-    wx.cloud.init({ env: `ty-${miniProgram.appId}` });
+    // const { miniProgram } = wx.getAccountInfoSync();
+    // wx.cloud.init({ env: `ty-${miniProgram.appId}` });
 
     try {
       const { device_id } = await request({

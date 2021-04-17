@@ -5,5 +5,5 @@
     "Enum": "./components/Enum/index",
     "Integer": "./components/Integer/index"
   },
-  "navigationStyle": "custom"
+  "navigationBarTitleText": "涂鸦智能单插"
 }

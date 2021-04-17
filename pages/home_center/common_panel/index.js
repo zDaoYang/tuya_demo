@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    device_id: '',
     device_name: '',
     titleItem: {
       name: '',
@@ -25,6 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.error(options)
     const { device_id } = options
     this.setData({ device_id })
 
@@ -41,6 +43,7 @@ Page({
    */
   onReady: async function () {
     const { device_id } = this.data
+    console.error(device_id)
     const [{ name, status, icon }, { functions = [] }] = await Promise.all([
       getDeviceDetails(device_id),
       getDevFunctions(device_id),
@@ -106,7 +109,10 @@ Page({
   sendDp: async function (e) {
     const { dpCode, value } = e.detail
     const { device_id } = this.data
-
+    this.data.titleItem.value = value
+    this.setData({
+      titleItem: this.data.titleItem
+    })
     const { success } = await deviceControl(device_id, dpCode, value)
   },
 

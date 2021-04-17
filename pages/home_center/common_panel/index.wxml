@@ -7,7 +7,7 @@
 <view class="common-panel-header">
   <view class="common-panel-header-block">
     <view class="common-panel-header-dpName">{{titleItem.name}}</view>
-    <view class="common-panel-header-dpValue">{{titleItem.value}}</view>
+    <view class="common-panel-header-dpValue">{{titleItem.value ? '开' : '关'}}</view>
   </view>
 </view>
 
@@ -28,14 +28,14 @@
       <block wx:if="{{item.type === 'Boolean'}}">
         <Boolean model:isChecked="{{item.value}}" dpCode="{{item.code}}" dpName="{{item.name}}" bind:sendDp="sendDp" />
       </block>
-      <block wx:if="{{item.type === 'Integer'}}">
-        <Integer model:value="{{item.value}}" values="{{item.values}}" dpCode="{{item.code}}" dpName="{{item.name}}"
-          bind:sendDp="sendDp" />
-      </block>
+   
       <block wx:if="{{item.type === 'Enum'}}">
         <Enum model:value="{{item.value}}" values="{{item.values}}" dpCode="{{item.code}}" dpName="{{item.name}}"
           bind:sendDp="sendDp" />
       </block>
+    </block>
+    <block>
+      <Boolean isDemo="{{true}}" dpCode="{{item.code}}" dpName="电量统计" bind:sendDp="sendDp" />
     </block>
   </block>
 </view>
