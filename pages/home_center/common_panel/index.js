@@ -1,5 +1,7 @@
 // miniprogram/pages/home_center/common_panel/index.js.js
 import { getDevFunctions, getDeviceDetails, deviceControl } from '../../../utils/api/device-api'
+import { getStatisticsAllType, getStatisticsTotal, getStatisticsDays } from '../../../utils/api/statistics-api'
+import timerApi from '../../../utils/api/timer-api'
 import wxMqtt from '../../../utils/mqtt/wxMqtt'
 
 
@@ -25,11 +27,27 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.error(options)
+  onLoad (options) {
+    
+    
     const { device_id } = options
     this.setData({ device_id })
-
+    // getStatisticsAllType(device_id)
+    // getStatisticsTotal({ device_id, code: "add_ele"}).then(res => {
+    //   console.error(res)
+    // })
+    // getStatisticsDays({ device_id, code: "add_ele", start_day: '20210425', end_day: '20210425'}).then(res => {
+    //   console.error(res)
+    // })
+    timerApi.deleteTimer({
+      device_id
+    })
+    
+    timerApi.queryTimerList({
+      device_id
+    })
+    
+    
     // mqtt消息监听
     wxMqtt.on('message', (topic, newVal) => {
       const { status } = newVal
@@ -147,5 +165,8 @@ Page({
     wx.navigateTo({
       url: `/pages/home_center/device_manage/index?device_id=${device_id}&device_name=${device_name}&device_icon=${icon}`,
     })
-  }
+  },
+
+
+
 })

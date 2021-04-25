@@ -17,7 +17,7 @@
   },
   "plugins": {
     "tuya-ap-plugin": {
-      "version": "3.3.18",
+      "version": "3.3.19",
       "provider": "wxd2aa51ffacc3ff86"
     }
   },
