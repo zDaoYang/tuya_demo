@@ -1,41 +1,30 @@
-<!--miniprogram/pages/home_center/common_panel/index.js.wxml-->
-<wxs src="./index.wxs" module="utils" />
+<view class="content flex-column-between">
 
-<image class="common-panel-backgroud" src="{{forest}}" />
-<navbar device_name="{{device_name}}" bind:jumpTodeviceEditPage="jumpTodeviceEditPage" />
-
-<view class="common-panel-header">
-  <view class="common-panel-header-block">
-    <view class="common-panel-header-dpName">{{titleItem.name}}</view>
-    <view class="common-panel-header-dpValue">{{titleItem.value ? '开' : '关'}}</view>
+  <view class="socket flex-column-start">
+    <image class="socket-icon" mode="widthFix" src="/image/panel/socket.png"></image>
+    <view class="socket-status">插座已开启</view>
+    <view class="socket-tip flex-row-center">30分钟后关闭</view>
   </view>
-</view>
 
-<block wx:if="{{isRoDpListShow}}">
-  <view class="statuslist">
-    <block wx:for="{{roDpList}}" wx:key="{{item.code}}" wx:for-item="item" wx:for-index='idx'>
-      <view class="{{utils.countDpItem(roDpListLength,idx)}}">
-        <view class="roDpItem-dpName">{{item.code}}</view>
-        <view class="roDpItem-status">{{item.value}}</view>
+  <view class="control flex-row-between">
+    <view class="control-item">
+      <view class="control-item-icon-wrapper">
+        <image class="control-item-icon" mode="widthFix" src="/image/panel/timer.png"></image>
       </view>
-    </block>
+      <view class="control-item-name">定时</view>
+    </view>
+    <view class="control-item">
+      <view class="control-item-icon-wrapper">
+        <image class="control-item-icon" mode="widthFix" src="/image/panel/switch.png"></image>
+      </view>
+      <view class="control-item-name">开关</view>
+    </view>
+    <view class="control-item">
+      <view class="control-item-icon-wrapper">
+        <image class="control-item-icon" mode="widthFix" src="/image/panel/count.png"></image>
+      </view>
+      <view class="control-item-name">倒计时</view>
+    </view>
   </view>
-</block>
-
-<view class="scroll-view">
-  <block wx:if="{{isRwDpListShow}}">
-    <block wx:for="{{rwDpList}}" wx:key="{{item.code}}" wx:for-item="item">
-      <block wx:if="{{item.type === 'Boolean'}}">
-        <Boolean model:isChecked="{{item.value}}" dpCode="{{item.code}}" dpName="{{item.name}}" bind:sendDp="sendDp" />
-      </block>
-   
-      <block wx:if="{{item.type === 'Enum'}}">
-        <Enum model:value="{{item.value}}" values="{{item.values}}" dpCode="{{item.code}}" dpName="{{item.name}}"
-          bind:sendDp="sendDp" />
-      </block>
-    </block>
-    <block>
-      <Boolean isDemo="{{true}}" dpCode="{{item.code}}" dpName="电量统计" bind:sendDp="sendDp" />
-    </block>
-  </block>
 </view>
+  

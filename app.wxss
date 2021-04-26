@@ -1,4 +1,7 @@
 /**app.wxss**/
+@import '/wxss/reset.wxss';
+@import '/wxss/flex.wxss';
+
 page {
   background-color: #f6f6f6;
   display: flex;
@@ -6,4 +9,8 @@ page {
   justify-content: flex-start;
   overflow: scroll;
 }
+
+
+
+
 
