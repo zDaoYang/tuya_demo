@@ -1,5 +1,10 @@
 {
+  "navigationBarBackgroundColor": "#444E69",
+  "backgroundColorTop": "#444E69",
+  "backgroundColorBottom": "#444E69",
+  "navigationBarTitleText": "涂鸦智能单插",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
-  },
-  "navigationBarTitleText": "涂鸦智能单插"
+    "picker": "weui-miniprogram/dialog/dialog"
+  }
 }

@@ -1,6 +1,8 @@
 /**app.wxss**/
 @import '/wxss/reset.wxss';
 @import '/wxss/flex.wxss';
+@import '/wxss/iconfont.wxss';
+@import '/wxss/global.wxss';
 
 page {
   background-color: #f6f6f6;

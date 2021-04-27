@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    array: ['美国', '中国', '巴西', '日本'],
+    device_switch: false,
     device_id: '',
     device_name: '',
     titleItem: {
@@ -87,6 +89,32 @@ Page({
     const isRwDpListShow = Object.keys(rwDpList).length > 0
 
     this.setData({ titleItem, roDpList, rwDpList, device_name: name, isRoDpListShow, isRwDpListShow, roDpListLength, icon })
+  },
+  
+  // 开关
+  actionSwitch () {
+    const switchVal = !this.data.device_switch
+    this.setData({
+      device_switch: switchVal
+    })
+    const color = switchVal ? "#1DC36D" : "#444E69"
+    
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: color,
+      animation: {
+        duration: 300,
+        timingFunc: 'easeIn'
+      }
+    })
+    wx.setBackgroundColor({
+      backgroundColorTop: color, // 顶部窗口的背景色为白色
+      backgroundColorBottom: color, // 底部窗口的背景色为白色
+    })
+  },
+
+  bindPickerChange() {
+
   },
 
   // 分离只上报功能点，可上报可下发功能点

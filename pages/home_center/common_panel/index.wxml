@@ -1,30 +1,38 @@
-<view class="content flex-column-between">
+<view class="content flex-column-between {{ device_switch ? 'active' : ''}}">
 
   <view class="socket flex-column-start">
     <image class="socket-icon" mode="widthFix" src="/image/panel/socket.png"></image>
-    <view class="socket-status">插座已开启</view>
-    <view class="socket-tip flex-row-center">30分钟后关闭</view>
+    <view class="socket-status">插座已{{ device_switch ? '开启' : '关闭' }}</view>
+    <!-- <view class="socket-tip flex-row-center">30分钟后关闭</view> -->
   </view>
 
   <view class="control flex-row-between">
     <view class="control-item">
       <view class="control-item-icon-wrapper">
-        <image class="control-item-icon" mode="widthFix" src="/image/panel/timer.png"></image>
+        <view class="control-item-icon iconfont icon-shijian "></view>
       </view>
       <view class="control-item-name">定时</view>
     </view>
-    <view class="control-item">
-      <view class="control-item-icon-wrapper">
-        <image class="control-item-icon" mode="widthFix" src="/image/panel/switch.png"></image>
+    <view class="control-item" bindtap="actionSwitch">
+      <view class="control-item-icon-wrapper {{ device_switch ? 'active' : ''}}">
+        <view class="control-item-icon iconfont icon-kaiguan {{ device_switch ? 'active' : ''}}"></view>
       </view>
       <view class="control-item-name">开关</view>
     </view>
     <view class="control-item">
       <view class="control-item-icon-wrapper">
-        <image class="control-item-icon" mode="widthFix" src="/image/panel/count.png"></image>
+        <view class="control-item-icon iconfont icon-daojishi ft44"></view>
       </view>
       <view class="control-item-name">倒计时</view>
     </view>
   </view>
+
+
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" mode="multiSelector">
+    <view class="picker">
+      当前选择：{{array[index]}}
+    </view>
+  </picker>
 </view>
   
+

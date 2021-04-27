@@ -21,5 +21,8 @@
       "provider": "wxd2aa51ffacc3ff86"
     }
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }

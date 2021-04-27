@@ -1,9 +1,13 @@
 
 
 .content {
-  background: #1DC36D;
+  background: #444E69;
   height: 100vh;
   padding-bottom: 120rpx;
+  transition: all ease-in 0.3s;
+}
+.content.active {
+  background: #1DC36D;
 }
 
 .socket {
@@ -45,16 +49,24 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  transition: all ease-in 0.3s;
+}
+.control-item-icon-wrapper.active {
+  background: #fff;
 }
 .control-item-icon-wrapper.active {
   background: #fff;
 }
 .control-item-icon {
-  width: 50%;
-  height: 50%;
+  font-size: 56rpx;
+  color: #fff;
+  transition: all ease-in 0.3s;
 }
 .control-item-name {
   margin-top: 20rpx;
   color: #fff;
   font-size: 24rpx;
+}
+.icon-kaiguan.active {
+  color: #1DC36D;
 }
