@@ -1,3 +1,6 @@
+<wxs src="./index.wxs" module="utils" />
+
+
 <view class="content flex-column-between {{ device_switch ? 'active' : ''}}">
 
   <view class="socket flex-column-start">
@@ -7,9 +10,9 @@
   </view>
 
   <view class="control flex-row-between">
-    <view class="control-item">
+    <view class="control-item" bindtap="actionToTimer">
       <view class="control-item-icon-wrapper">
-        <view class="control-item-icon iconfont icon-shijian "></view>
+        <view class="control-item-icon iconfont icon-shijian"></view>
       </view>
       <view class="control-item-name">定时</view>
     </view>
@@ -19,20 +22,39 @@
       </view>
       <view class="control-item-name">开关</view>
     </view>
-    <view class="control-item">
+    <view class="control-item" bindtap="actionShowTimerPoPup">
       <view class="control-item-icon-wrapper">
         <view class="control-item-icon iconfont icon-daojishi ft44"></view>
       </view>
       <view class="control-item-name">倒计时</view>
     </view>
-  </view>
+  </view> 
 
 
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" mode="multiSelector">
-    <view class="picker">
-      当前选择：{{array[index]}}
-    </view>
-  </picker>
+  <van-popup show="{{isShowPicker}}" position="bottom" close-on-click-overlay="{{true}}" bind:close="actionClosePicker">
+    <view class="picker flex-column-start">
+      <view class="picker-title flex-row-between">
+        <view class="left">
+          {{isOn ? '开' : '关'}}
+          <switch color="#1DC36D" checked="{{isOn}}" type="switch" bindchange="actionOnSwitchChange" style="margin-left:10rpx;"></switch>
+        </view>
+        <view class="right">{{timeStr}}后{{isOn ? '开启' : '关闭'}}</view>
+      </view>
+
+      <picker-view style="width:50%;height:300rpx;margin-top:80rpx;" value="" indicator-class="indicator1" mask-class="" mask-style="" bindchange="actionOnPickerChange">
+        <picker-view-column>
+          <view wx:for="{{mins}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>        
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{secs}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+        
+      <view class="confirm-btn flex-row-center" bindtap="actionSetTimer">确认</view>
+        
+    </view>        
+
+  </van-popup>
 </view>
   
 

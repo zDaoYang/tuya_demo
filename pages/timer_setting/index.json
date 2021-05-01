@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "定时",
+  "usingComponents": {
+    "picker": "weui-miniprogram/dialog/dialog"
+  }
+}

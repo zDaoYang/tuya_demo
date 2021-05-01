@@ -32,6 +32,9 @@
 }
 
 .control {
+  position: fixed;
+  bottom: 100rpx;
+  left: 0;
   width: 100%;
   padding: 0 100rpx;
 }
@@ -69,4 +72,44 @@
 }
 .icon-kaiguan.active {
   color: #1DC36D;
+}
+
+.picker {
+  width: 100%;
+  height: auto;
+  padding-bottom: 80rpx;
+}
+.picker-title {
+  position: relative;
+  padding: 0 30rpx;
+  width: 100%;
+  height: 120rpx;
+}
+.picker-title::after {
+  background: #eee;
+  content: '';
+  width: 100%;
+  height: 1px;
+  transform: scaleY(0.5);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.picker-title > .left {
+  color: #272b45;
+  font-size: 34rpx;
+}
+.picker-title > .right {
+  color: #272b45;
+  font-size: 24rpx;
+}
+
+.picker > .confirm-btn {
+  margin-top: 60rpx;
+  width: 600rpx;
+  height: 100rpx;
+  border-radius: 100rpx;
+  background: #1DC36D;
+  color: #fff;
+  font-size: 36rpx;
 }

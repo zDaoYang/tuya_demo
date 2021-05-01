@@ -19,8 +19,8 @@
           "scene": null
         },
         {
-          "name": "面板列表",
-          "pathName": "pages/home_center/device_list/index",
+          "name": "计时器面板",
+          "pathName": "pages/timer_setting/index",
           "query": "",
           "scene": null
         }

@@ -1,0 +1,53 @@
+<view>
+  <view class="timer flex-row-between" wx:for="{{[1,2,3,4,5]}}">
+    <view class="setting flex-column-start">
+      <view class="setting-type">开启设备</view>
+      <view class="setting-time">07:10</view>
+      <view class="setting-day">周一，周二，周三，周四，周五</view>
+    </view>
+    <switch class="switch" checked="false" color="#ff8615" bindchange=""></switch>
+  </view>
+
+  <view class="add-btn flex-row-center">添加</view>
+  
+  
+  <van-popup show="{{isShowPicker}}" position="bottom" close-on-click-overlay="{{true}}" bind:close="actionClosePicker">
+    <view class="picker flex-column-start">
+      <view class="picker-title flex-row-between">
+        <view class="left">
+          {{isOn ? '开' : '关'}}
+          <switch color="#ff8615" checked="{{isOn}}" type="switch" bindchange="actionOnSwitchChange" style="margin-left:10rpx;"></switch>
+        </view>
+        <view class="right">{{isOn ? '开启设备' : '关闭设备'}}</view>
+      </view>
+
+      <picker-view style="width:50%;height:300rpx;margin-top:80rpx;" value="" indicator-class="indicator1" mask-class="" mask-style="" bindchange="actionOnPickerChange">
+        <picker-view-column>
+          <view wx:for="{{mins}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>        
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{secs}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+      <view class="dot">:</view>
+      
+
+      <view class="repeat flex-column-start">
+        <view class="repeat-title">重复</view>
+        <view class="repeat-option flex-row-start">
+
+          <view class="repeat-option_item flex-column-center" wx:for="{{repeatOption}}">
+            <view class="repeat-day">{{item.label}}</view>
+            <radio class="repeat-radio" checked="{{item.value}}" color="#ff8315"></radio>       
+          </view>
+          
+        </view>
+      </view>
+      
+      <view class="confirm-btn flex-row-center" bindtap="actionSetTimer">确认</view>
+        
+    </view>        
+
+  </van-popup>
+</view>
+  

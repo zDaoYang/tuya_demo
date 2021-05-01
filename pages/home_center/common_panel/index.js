@@ -11,7 +11,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    array: ['美国', '中国', '巴西', '日本'],
+    mins: [], // 分钟
+    secs: [], // 分钟
+    timeStr: '15分0秒',
+    isOn: true,
+    isShowPicker: false,
     device_switch: false,
     device_id: '',
     device_name: '',
@@ -56,6 +60,8 @@ Page({
       console.log(newVal)
       this.updateStatus(status)
     })
+
+    this.initMins()
   },
 
   /**
@@ -91,6 +97,23 @@ Page({
     this.setData({ titleItem, roDpList, rwDpList, device_name: name, isRoDpListShow, isRwDpListShow, roDpListLength, icon })
   },
   
+  actionToTimer() {
+    wx.navigateTo({
+      url: '/pages/timer_setting/index'
+    })
+  },
+  actionShowTimerPoPup() {
+    this.setData({
+      isShowPicker: true
+    })
+  },
+
+  actionClosePicker() {
+    this.setData({
+      isShowPicker: false
+    })
+  },
+
   // 开关
   actionSwitch () {
     const switchVal = !this.data.device_switch
@@ -113,8 +136,43 @@ Page({
     })
   },
 
-  bindPickerChange() {
+  // 初始化数据
+  initMins() {
+    let n = 1
+    let result1 = []
+    let result2 = ['0秒']
+    while( n <= 60) {
+      result1.push(`${n}` + '分')
+      result2.push(`${n}` + '秒')
+      n++
+    }
+    result2.pop()
+    this.setData({
+      mins: result1,
+      secs: result2
+    })
+  },
 
+  actionOnSwitchChange(e) {
+    this.setData({
+      isOn: e.detail.value
+    })
+  },
+
+  actionOnPickerChange(e) {
+    const min = e.detail.value[0]
+    const sec = e.detail.value[1]
+    const timeStr = `${min + 1}分${sec}秒`
+    this.setData({
+      timeStr
+    })
+  },
+
+  // 设置定时器
+  actionSetTimer() {
+    this.setData({
+      isShowPicker: false
+    })
   },
 
   // 分离只上报功能点，可上报可下发功能点
