@@ -45,13 +45,13 @@ Page({
     // getStatisticsDays({ device_id, code: "add_ele", start_day: '20210425', end_day: '20210425'}).then(res => {
     //   console.error(res)
     // })
-    timerApi.deleteTimer({
-      device_id
-    })
+    // timerApi.deleteTimer({
+    //   device_id
+    // })
     
-    timerApi.queryTimerList({
-      device_id
-    })
+    // timerApi.queryTimerList({
+    //   device_id
+    // })
     
     
     // mqtt消息监听
