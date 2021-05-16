@@ -45,7 +45,7 @@ Page({
   formatMonths(months) {
     let result = []
     Object.keys(months).forEach(key => {
-      result.push({
+      result.unshift({
         title: key,
         value: months[key]
       })
