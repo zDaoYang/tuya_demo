@@ -1,0 +1,117 @@
+/**index.wxss**/
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.today {
+  background: #fff;
+  padding: 30rpx 40rpx;
+}
+.today-title {
+  font-size: 32rpx;
+  color: #888;
+
+}
+.today-value {
+  margin-bottom: 40rpx;
+  font-size: 60rpx;
+  color: #ff8315;
+  font-weight: 700;
+}
+
+.value {
+  position: relative;
+}
+.value:before {
+  background: #eee;
+  content: '';
+  width: 100%;
+  height: 1px;
+  transform: scaleY(0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.value:after {
+  background: #eee;
+  content: '';
+  width: 100%;
+  height: 1px;
+  transform: scaleY(0.5);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.value-item {
+  flex: 1;
+  position: relative;
+  padding: 20rpx 10rpx;
+}
+.value-item:not(:last-child)::after {
+  background: #eee;
+  content: '';
+  width: 1px;
+  height: 100%;
+  transform: scaleX(0.5);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.value-item_title {
+  white-space: nowrap;
+  color: #888;
+  font-size: 22rpx;  
+}
+.value-item_value {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #272b45;
+  font-weight: 700;
+}
+.history {
+  
+}
+
+.year {
+
+}
+.year-title {
+  color: #888;
+  height: 100rpx;
+  padding-left: 40rpx;
+}
+.year-value {
+}
+.year-value_item {
+  padding: 0 40rpx;
+  background: #fff;
+  position: relative;
+  height: 100rpx;
+  color: #272b45;
+}
+
+.year-value_item:not(:last-child)::after {
+  background: #eee;
+  content: '';
+  width: 90%;
+  height: 1px;
+  transform: scaleY(0.5);
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+}
+
+.left {
+
+}
+.right {
+
+}
+.icon-arrow-r {
+  margin-left: 16rpx;
+  color: #888;
+}

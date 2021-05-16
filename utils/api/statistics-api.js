@@ -15,12 +15,23 @@ export default {
       }
     })
   },
-  // 获取设备支持的统计类型
+  // 获取历史总电量
   getStatisticsTotal (params) {
     return request({
       name: 'ty-service',
       data: {
         action: 'statistics.total',
+        params
+      }
+    })
+  },
+
+  // 按分钟统计
+   getStatisticsQuarters (params) {
+    return request({
+      name: 'ty-service',
+      data: {
+        action: 'statistics.quarters',
         params
       }
     })
@@ -46,6 +57,39 @@ export default {
         params
       }
     })
-  }
+  },
+  
+  // 按星期统计
+  getStatisticsWeeks (params) {
+    return request({
+      name: 'ty-service',
+      data: {
+        action: 'statistics.weeks',
+        params
+      }
+    })
+  },
+
+  // 按月统计
+  getStatisticsMonths (params) {
+    return request({
+      name: 'ty-service',
+      data: {
+        action: 'statistics.months',
+        params
+      }
+    })
+  },
+
+  // 获取结果累加值
+  getStatisticsAll (params) {
+    return request({
+      name: 'ty-service',
+      data: {
+        action: 'statistics.all',
+        params
+      }
+    })
+  },
 
 }

@@ -7,7 +7,7 @@
   transition: all ease-in 0.3s;
 }
 .content.active {
-  background: #1DC36D;
+  background: #1EC46D;
 }
 
 .socket {
@@ -27,7 +27,7 @@
   font-size: 24rpx;
   color: rgba(255, 255, 255, 0.7);
   background: rgba(255, 255, 255, 0.2);
-  padding: 8rpx 36rpx;
+  padding: 4rpx 36rpx;
   border-radius: 24rpx;
 }
 
@@ -71,7 +71,7 @@
   font-size: 24rpx;
 }
 .icon-kaiguan.active {
-  color: #1DC36D;
+  color: #1EC46D;
 }
 
 .picker {
@@ -109,7 +109,16 @@
   width: 600rpx;
   height: 100rpx;
   border-radius: 100rpx;
-  background: #1DC36D;
+  background: #1EC46D;
   color: #fff;
   font-size: 36rpx;
+}
+
+.statistics {
+  position: absolute;
+  color: #fff;
+  font-size: 24rpx;
+  text-decoration: underline;
+  right: 60rpx;
+  top: 80rpx;
 }

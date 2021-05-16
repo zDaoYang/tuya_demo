@@ -1,14 +1,49 @@
-<view>
-  <view class="timer flex-row-between" wx:for="{{[1,2,3,4,5]}}">
-    <view class="setting flex-column-start">
-      <view class="setting-type">开启设备</view>
-      <view class="setting-time">07:10</view>
-      <view class="setting-day">周一，周二，周三，周四，周五</view>
+<wxs src="./index.wxs" module="utils" />
+
+<view wx:if="{{isReady}}" style="padding-bottom:100rpx;">
+
+  <view wx:if="{{timerList.length > 0}}" data-groupid="{{ item.id }}" data-timer="{{item.timers[0]}}" class="timer flex-row-start" wx:for="{{timerList}}" wx:key="id">
+    <movable-area class="movable-area">
+        <movable-view 
+          class="movable-view flex-row-between"
+          out-of-bounds="true" 
+          direction="horizontal" 
+          x="{{item.xmove}}" 
+          inertia="true"
+          damping="50"
+          data-x="{{item.xmove || 0}}"
+          data-timerindex="{{index}}"
+          bindtouchstart="handleTouchStart"
+          bindtouchend="handleTouchEnd"
+          capture-bind:change="handleMovableChange">
+          <view class="setting flex-column-center">
+            <view class="setting-type">{{ utils.functionsToStr(item.timers[0].functions) }}</view>
+            <view class="setting-time">{{ item.timers[0].time }}</view>
+            <view class="setting-day">{{ utils.loopsToStr(item.timers[0].loops) }}</view>
+          </view>
+          <switch data-timerindex="{{index}}" data-groupid="{{ item.id }}" class="switch" checked="{{item.timers[0].status === 1}}" color="#ff8615" catchchange="actionChangeTimerStatus"></switch>
+        </movable-view>
+    </movable-area>
+    <view class="operate flex-row-start">
+      <view class="edit-btn flex-row-center" data-timer="{{ item.timers[0] }}" data-groupid="{{ item.id }}" bindtap="actionEdit">编辑</view>
+      <view class="delete-btn flex-row-center" data-groupid="{{ item.id }}" bindtap="actionDelete">删除</view>
     </view>
-    <switch class="switch" checked="false" color="#ff8615" bindchange=""></switch>
+
   </view>
 
-  <view class="add-btn flex-row-center">添加</view>
+  <view class="none flex-column-start" wx:if="{{timerList.length === 0}}">
+    <view class="none-icon iconfont icon-zanwushuju">
+      
+    </view>
+    <view class="nont-test">
+      暂无任务
+    </view>
+      
+      
+  </view>
+    
+
+  <view class="add-btn flex-row-center" bindtap="actionShowPicker">添加</view>
   
   
   <van-popup show="{{isShowPicker}}" position="bottom" close-on-click-overlay="{{true}}" bind:close="actionClosePicker">
@@ -21,12 +56,12 @@
         <view class="right">{{isOn ? '开启设备' : '关闭设备'}}</view>
       </view>
 
-      <picker-view style="width:50%;height:300rpx;margin-top:80rpx;" value="" indicator-class="indicator1" mask-class="" mask-style="" bindchange="actionOnPickerChange">
+      <picker-view style="width:50%;height:300rpx;margin-top:70rpx;" value="{{pickerValue}}" indicator-class="indicator1" mask-class="" mask-style="" bindchange="actionOnPickerChange">
         <picker-view-column>
-          <view wx:for="{{mins}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>        
+          <view wx:for="{{mins}}" style="line-height: 50rpx; text-align: center;" wx:key="item">{{item}}</view>        
         </picker-view-column>
         <picker-view-column>
-          <view wx:for="{{secs}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>
+          <view wx:for="{{secs}}" style="line-height: 50rpx; text-align: center;" wx:key="item">{{item}}</view>
         </picker-view-column>
       </picker-view>
       <view class="dot">:</view>
@@ -36,10 +71,12 @@
         <view class="repeat-title">重复</view>
         <view class="repeat-option flex-row-start">
 
-          <view class="repeat-option_item flex-column-center" wx:for="{{repeatOption}}">
-            <view class="repeat-day">{{item.label}}</view>
-            <radio class="repeat-radio" checked="{{item.value}}" color="#ff8315"></radio>       
-          </view>
+          <checkbox-group bindchange="actionCheckBoxChange" style="width:100%" class="flex-row-between">
+            <view class="repeat-option_item flex-column-center" wx:for="{{repeatOption}}" wx:key="item">
+              <view class="repeat-day">{{item.label}}</view>
+              <checkbox class="repeat-checkbox" checked="{{item.value}}" color="#ff8315" value="{{index}}"></checkbox>       
+            </view>
+          </checkbox-group>
           
         </view>
       </view>
@@ -49,5 +86,8 @@
     </view>        
 
   </van-popup>
+
+  
 </view>
+
   

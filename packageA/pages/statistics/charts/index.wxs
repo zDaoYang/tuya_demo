@@ -1,0 +1,28 @@
+function loopsToStr(loops) {
+  var arr = loops.split('')
+  var data = [ '周日', '周一', '周二', '周三', '周四', '周五', '周六' ]
+  arr = arr.map(function (item, index)  {
+    if(item === '1') {
+      return data[index]
+    } else {
+      return ''
+    }
+  }).filter(function(item) {
+    return !!item
+  })
+  return arr.join('、')
+  // return isOff ? '关' : '开' 
+}
+
+function functionsToStr(functions) {
+  // [{code: "switch", value: true}]
+  if(functions[0].value) {
+    return '开启设备'
+  } else {
+    return '关闭设备'
+  }
+}
+module.exports = {
+  loopsToStr: loopsToStr,
+  functionsToStr: functionsToStr
+}

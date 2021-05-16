@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/guide/index",
-    "pages/home_center/device_list/index",
     "pages/home_center/common_panel/index",
+    "pages/home_center/device_list/index",
+    "pages/home_center/common_panel-2/index",
     "pages/home_center/device_manage/index",
     "pages/timer_setting/index",
     "pages/cloud_check/index",
@@ -16,6 +17,15 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "subpackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/statistics/home/index",
+        "pages/statistics/charts/index"
+      ]
+    }
+  ],
   "plugins": {
     "tuya-ap-plugin": {
       "version": "3.3.19",

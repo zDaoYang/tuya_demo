@@ -1,11 +1,25 @@
+
+.none {
+  background: #fff;
+  padding: 80rpx 0;
+}
+.none-icon {
+  color: #ff8315;
+  font-size: 100rpx;
+}
+.none-text {
+  color: #272b45;
+  font-size: 24rpx;
+}
+
 .timer {
   position: relative;
-  width: 100%;
   height: 180rpx;
   background: #fff;
-  padding: 0 30rpx 0 40rpx;
 }
+
 .timer::after {
+  z-index: 9;
   background: #eee;
   content: '';
   width: 100%;
@@ -15,6 +29,7 @@
   bottom: 0;
   left: 0;
 }
+
 .setting {
   align-items: flex-start;
 }
@@ -55,7 +70,7 @@
 .dot {
   font-size: 40rpx;
   position: absolute;
-  top: 310rpx;
+  top: 304rpx;
 }
 .picker-title {
   position: relative;
@@ -131,5 +146,125 @@
   font-size: 24rpx;
 }
 
-.repeat-radio {
+.repeat-checkbox {
+}
+
+.cooperate {
+  position: fixed;
+  color: #fff;
+  background: #000;
+  border-radius: 14rpx;
+  transform: translate3d(-80rpx, -60rpx, 0);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cooperate.show {
+  opacity: 1;
+}
+.cooperate::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 14rpx solid #000;
+  border-right: 14rpx solid transparent;
+  border-bottom: 14rpx solid transparent;
+  border-left: 14rpx solid transparent;
+  bottom: 0;
+  left: 34%;
+  transform: translate3d(-50%, 100%, 0)
+}
+.cooperate-item {
+  font-size: 24rpx;
+  white-space: nowrap;
+  padding: 10rpx 30rpx;
+}
+.cooperate-item:first-child {
+  position: relative;
+  border-radius: 14rpx 0 0 14rpx;
+}
+.cooperate-item:last-child {
+  position: relative;
+  border-radius: 0 14rpx 14rpx 0;
+}
+.cooperate-item:first-child::after {
+  position: absolute;
+  content: '';
+  width: 1px;
+  height: 100%;
+  background: #eee;
+  right: 0;
+  bottom: 0;
+  transform: scaleX(0.5);
+}
+.cooperate-item-hover-class {
+  background: rgb(105, 105, 105);
+}
+
+checkbox .wx-checkbox-input {
+  border-radius: 50%;
+}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border-color: #ff8315;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background: #ff8315;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #fff;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+.movable-area {
+  position: relative;
+  width: calc(100vw - 360rpx);
+  height: 180rpx;
+  box-sizing: border-box;
+}
+
+
+.movable-view {
+  position: relative;
+  background: #fff;
+  z-index: 9;
+  width: 100vw;
+  height: 180rpx;
+  padding: 0 30rpx 0 40rpx;
+  box-sizing: border-box;
+}
+
+.operate {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0; 
+  width: 360rpx;
+  height: 180rpx;
+}
+
+.edit-btn {
+  height: 100%;
+  flex: 1;
+  background: #1EC46D;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+.delete-btn {
+  height: 100%;
+  flex: 1;
+  background: #ed4014;
+  color: #fff;
+  font-size: 32rpx;
 }

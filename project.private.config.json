@@ -19,9 +19,33 @@
           "scene": null
         },
         {
-          "name": "计时器面板",
+          "name": "定时任务",
           "pathName": "pages/timer_setting/index",
-          "query": "",
+          "query": "device_id=3275085650029153ca36",
+          "scene": null
+        },
+        {
+          "name": "单插demo",
+          "pathName": "pages/home_center/common_panel-2/index",
+          "query": "device_id=3275085650029153ca36&device_name=智能单插联通版",
+          "scene": null
+        },
+        {
+          "name": "图表页",
+          "pathName": "packageA/pages/statistics/charts/index",
+          "query": "device_id=3275085650029153ca36&year=2021&month=04",
+          "scene": null
+        },
+        {
+          "name": "左滑删除demo",
+          "pathName": "pages/touch/index",
+          "query": "device_id=3275085650029153ca36",
+          "scene": null
+        },
+        {
+          "name": "home/index",
+          "pathName": "packageA/pages/statistics/home/index",
+          "query": "device_id=3275085650029153ca36",
           "scene": null
         }
       ]

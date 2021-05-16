@@ -7,8 +7,8 @@ const store = configStore();
 
 App(Provider(store)({
   onLaunch: async function() {
-    // wx.cloud.init()
-    // wxMqtt.connectMqtt()
+    wx.cloud.init()
+    wxMqtt.connectMqtt()
     
     // 初始化云环境
     const { miniProgram } = wx.getAccountInfoSync();

@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="container" wx:if="{{isReady}}">
+  <view class="today">
+    <view class="today-title">今日电量(kWh)</view>
+    <view class="today-value">{{ thisDay }}</view>
+    <view class="value flex-row-between">
+      <view class="value-item">
+        <view class="value-item_title">电流(mA)</view>
+        <view class="value-item_value">{{ cur_current }}</view>
+      </view>
+      <view class="value-item">
+        <view class="value-item_title">当前功耗(W)</view>
+        <view class="value-item_value">{{ cur_power}}</view>
+      </view>
+      <view class="value-item">
+        <view class="value-item_title">当前电压(V)</view>
+        <view class="value-item_value">{{ cur_voltage }}</view>
+      </view>
+      <view class="value-item">
+        <view class="value-item_title">历史电量(kWh)</view>
+        <view class="value-item_value">{{ sum }}</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="history">
+    <view class="year" wx:for="{{years}}" wx:for-item="year">
+      <view class="year-title flex-row-start">{{ year.title }}年</view>
+      <view class="year-value">
+        <view class="year-value_item flex-row-between" wx:for="{{year.value}}" data-year="{{year.title}}" data-month="{{month.title}}" wx:for-item="month" bindtap="actionToCharts">
+          <view class="left">{{ month.title }}月</view>
+          <view class="right flex-row-start">
+            {{ month.value }}
+            <view class="iconfont icon-arrow-r"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+
+</view>

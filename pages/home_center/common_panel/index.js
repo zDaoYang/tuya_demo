@@ -1,7 +1,5 @@
 // miniprogram/pages/home_center/common_panel/index.js.js
-import { getDevFunctions, getDeviceDetails, deviceControl } from '../../../utils/api/device-api'
-import { getStatisticsAllType, getStatisticsTotal, getStatisticsDays } from '../../../utils/api/statistics-api'
-import timerApi from '../../../utils/api/timer-api'
+import { getDeviceDetails, deviceControl } from '../../../utils/api/device-api'
 import wxMqtt from '../../../utils/mqtt/wxMqtt'
 
 
@@ -11,95 +9,64 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isReady: false,
     mins: [], // 分钟
     secs: [], // 分钟
-    timeStr: '15分0秒',
+    timeStr: '0分0秒',
+    timerSeconds: 0, // 倒计时几秒关闭
+    temp_timerSeconds: 0,
     isOn: true,
     isShowPicker: false,
     device_switch: false,
-    device_id: '',
+    device_id: '3275085650029153ca36',
     device_name: '',
-    titleItem: {
-      name: '',
-      value: '',
-    },
-    roDpList: {}, //只上报功能点
-    rwDpList: {}, //可上报可下发功能点
-    isRoDpListShow: false,
-    isRwDpListShow: false,
-    forest: '../../../image/forest@2x.png'
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad (options) {
-    
-    
-    const { device_id } = options
-    this.setData({ device_id })
-    // getStatisticsAllType(device_id)
-    // getStatisticsTotal({ device_id, code: "add_ele"}).then(res => {
-    //   console.error(res)
-    // })
-    // getStatisticsDays({ device_id, code: "add_ele", start_day: '20210425', end_day: '20210425'}).then(res => {
-    //   console.error(res)
-    // })
-    // timerApi.deleteTimer({
-    //   device_id
-    // })
-    
-    // timerApi.queryTimerList({
-    //   device_id
-    // })
-    
-    
-    // mqtt消息监听
-    wxMqtt.on('message', (topic, newVal) => {
-      const { status } = newVal
-      console.log(newVal)
-      this.updateStatus(status)
-    })
-
-    this.initMins()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: async function () {
-    const { device_id } = this.data
-    console.error(device_id)
-    const [{ name, status, icon }, { functions = [] }] = await Promise.all([
-      getDeviceDetails(device_id),
-      getDevFunctions(device_id),
-    ]);
+   onLoad(options) {
 
-    const { roDpList, rwDpList } = this.reducerDpList(status, functions)
-
-    // 获取头部展示功能点信息
-    let titleItem = {
-      name: '',
-      value: '',
-    };
-    if (Object.keys(roDpList).length > 0) {
-      let keys = Object.keys(roDpList)[0];
-      titleItem = roDpList[keys];
-    } else {
-      let keys = Object.keys(rwDpList)[0];
-      titleItem = rwDpList[keys];
+        
+    const { device_id } = options
+    if(device_id) {
+      this.setData({
+        device_id
+      })
     }
+    
+    // mqtt消息监听
+    wxMqtt.on('message', this.onMessage)
 
-    const roDpListLength = Object.keys(roDpList).length
-    const isRoDpListShow = Object.keys(roDpList).length > 0
-    const isRwDpListShow = Object.keys(rwDpList).length > 0
+    this.initMins()
 
-    this.setData({ titleItem, roDpList, rwDpList, device_name: name, isRoDpListShow, isRwDpListShow, roDpListLength, icon })
+  },
+
+  onShow() {
+    this.ajaxGetDeviceDetail()
   },
   
+  onHide() {
+    clearInterval(this.data.timer)
+    wxMqtt.off('message', this.onMessage)
+
+  },
+
+  onUnload() {
+    clearInterval(this.data.timer)
+    wxMqtt.off('message', this.onMessage)
+  },
+
+  onMessage(topic, newVal) {
+    const { status } = newVal
+    console.error(status)
+    this.updateStatus(status)
+  },
+  // 去定时器页面
   actionToTimer() {
+    const { device_id } = this.data
     wx.navigateTo({
-      url: '/pages/timer_setting/index'
+      url: `/pages/timer_setting/index?device_id=${device_id}`
     })
   },
   actionShowTimerPoPup() {
@@ -114,10 +81,43 @@ Page({
     })
   },
 
+  updateStatus(status) {
+    const switchItem = status.find(item => item.code === 'switch')
+    if(switchItem) {
+      this.setSwitchStatus(switchItem.value)
+    }
+
+    const countDownItem = status.find(item => item.code === 'countdown_1')
+    if(switchItem) {
+      this.setData({
+        timerSeconds: countDownItem.value
+      })
+    }
+    
+  },
   // 开关
-  actionSwitch () {
+  async actionSwitch () {
     const switchVal = !this.data.device_switch
+
+    const { device_id } = this.data
+
+    const { success } = await deviceControl(device_id, 'switch', switchVal)
+
+    // 成功了，更改颜色
+    if(success) {
+      this.setSwitchStatus(switchVal)
+    }
+  },
+
+  actionToStatistics() {
+    const { device_id } = this.data
+    wx.navigateTo({
+      url: `/packageA/pages/statistics/home/index?device_id=${device_id}`,
+    })
+  },
+  setSwitchStatus(switchVal) {
     this.setData({
+      isOn: !switchVal,
       device_switch: switchVal
     })
     const color = switchVal ? "#1DC36D" : "#444E69"
@@ -138,9 +138,9 @@ Page({
 
   // 初始化数据
   initMins() {
-    let n = 1
+    let n = 0
     let result1 = []
-    let result2 = ['0秒']
+    let result2 = []
     while( n <= 60) {
       result1.push(`${n}` + '分')
       result2.push(`${n}` + '秒')
@@ -162,88 +162,52 @@ Page({
   actionOnPickerChange(e) {
     const min = e.detail.value[0]
     const sec = e.detail.value[1]
-    const timeStr = `${min + 1}分${sec}秒`
+    const temp_timerSeconds = (min) * 60 + sec
     this.setData({
-      timeStr
+      temp_timerSeconds
     })
   },
 
   // 设置定时器
-  actionSetTimer() {
-    this.setData({
-      isShowPicker: false
-    })
-  },
-
-  // 分离只上报功能点，可上报可下发功能点
-  reducerDpList: function (status, functions) {
-    // 处理功能点和状态的数据
-    let roDpList = {};
-    let rwDpList = {};
-    if (status && status.length) {
-      status.map((item) => {
-        const { code, value } = item;
-        let isExit = functions.find(element => element.code == code);
-        if (isExit) {
-          let rightvalue = value
-          // 兼容初始拿到的布尔类型的值为字符串类型
-          if (isExit.type === 'Boolean') {
-            rightvalue = value == 'true'
-          }
-
-          rwDpList[code] = {
-            code,
-            value: rightvalue,
-            type: isExit.type,
-            values: isExit.values,
-            name: isExit.name,
-          };
-        } else {
-          roDpList[code] = {
-            code,
-            value,
-            name: code,
-          };
-        }
-      });
+  async actionSetTimer() {
+    const { device_id, temp_timerSeconds } = this.data
+    const { success } = await deviceControl(device_id, 'countdown_1', temp_timerSeconds)
+    if(success) {
+      this.setData({
+        timerSeconds: temp_timerSeconds,
+        isShowPicker: false
+      })
     }
-    return { roDpList, rwDpList }
+
   },
 
-  sendDp: async function (e) {
-    const { dpCode, value } = e.detail
+  ajaxGetDeviceDetail() {
     const { device_id } = this.data
-    this.data.titleItem.value = value
-    this.setData({
-      titleItem: this.data.titleItem
+    getDeviceDetails(device_id).then(res => {
+      const { product_name, status } = res
+
+      // 设置title
+      wx.setNavigationBarTitle({
+        title: product_name
+      })
+
+      // 设置开关状态
+      const device_switch = status.find(item => item.code === 'switch').value
+      const timerSeconds = status.find(item => item.code === 'countdown_1').value
+
+      this.setSwitchStatus(device_switch)
+      
+      this.setData({
+        timerSeconds,
+        isReady: true
+      })
     })
-    const { success } = await deviceControl(device_id, dpCode, value)
+    
+
   },
 
-  updateStatus: function (newStatus) {
-    let { roDpList, rwDpList, titleItem } = this.data
 
-    newStatus.forEach(item => {
-      const { code, value } = item
 
-      if (typeof roDpList[code] !== 'undefined') {
-        roDpList[code]['value'] = value;
-      } else if (rwDpList[code]) {
-        rwDpList[code]['value'] = value;
-      }
-    })
-
-    // 更新titleItem
-    if (Object.keys(roDpList).length > 0) {
-      let keys = Object.keys(roDpList)[0];
-      titleItem = roDpList[keys];
-    } else {
-      let keys = Object.keys(rwDpList)[0];
-      titleItem = rwDpList[keys];
-    }
- 
-    this.setData({ titleItem, roDpList: { ...roDpList }, rwDpList: { ...rwDpList } })
-  },
 
   jumpTodeviceEditPage: function(){
     console.log('jumpTodeviceEditPage')

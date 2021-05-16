@@ -2,6 +2,13 @@ function setSwitchStr(isOff) {
   return isOff ? '关' : '开' 
 }
 
+function secondsToTimeStr(seconds) {
+  var sec = seconds % 60
+  var min = (seconds - sec) / 60
+  return min + '分' + sec + '秒'
+}
+
 module.exports = {
-  setSwitchStr: setSwitchStr
+  setSwitchStr: setSwitchStr,
+  secondsToTimeStr: secondsToTimeStr
 }

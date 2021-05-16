@@ -1,12 +1,13 @@
 <wxs src="./index.wxs" module="utils" />
 
 
-<view class="content flex-column-between {{ device_switch ? 'active' : ''}}">
+<view class="content flex-column-between {{ device_switch ? 'active' : ''}}" wx:if="{{isReady}}">
 
+  <view class="statistics" bindtap="actionToStatistics">电量统计</view>
   <view class="socket flex-column-start">
     <image class="socket-icon" mode="widthFix" src="/image/panel/socket.png"></image>
     <view class="socket-status">插座已{{ device_switch ? '开启' : '关闭' }}</view>
-    <!-- <view class="socket-tip flex-row-center">30分钟后关闭</view> -->
+    <view class="socket-tip flex-row-center" wx:if="{{timerSeconds > 0}}">约 {{ utils.secondsToTimeStr(timerSeconds) }} 后{{ isOn ? '开启' : '关闭' }}</view>
   </view>
 
   <view class="control flex-row-between">
@@ -33,15 +34,11 @@
 
   <van-popup show="{{isShowPicker}}" position="bottom" close-on-click-overlay="{{true}}" bind:close="actionClosePicker">
     <view class="picker flex-column-start">
-      <view class="picker-title flex-row-between">
-        <view class="left">
-          {{isOn ? '开' : '关'}}
-          <switch color="#1DC36D" checked="{{isOn}}" type="switch" bindchange="actionOnSwitchChange" style="margin-left:10rpx;"></switch>
-        </view>
-        <view class="right">{{timeStr}}后{{isOn ? '开启' : '关闭'}}</view>
+      <view class="picker-title flex-row-center">
+        {{utils.secondsToTimeStr(temp_timerSeconds)}}后{{isOn ? '开启' : '关闭'}}
       </view>
 
-      <picker-view style="width:50%;height:300rpx;margin-top:80rpx;" value="" indicator-class="indicator1" mask-class="" mask-style="" bindchange="actionOnPickerChange">
+      <picker-view style="width:50%;height:300rpx;margin-top:60rpx;" value="" indicator-class="indicator1" mask-class="" mask-style="" bindchange="actionOnPickerChange">
         <picker-view-column>
           <view wx:for="{{mins}}" style="line-height: 50rpx; text-align: center;">{{item}}</view>        
         </picker-view-column>

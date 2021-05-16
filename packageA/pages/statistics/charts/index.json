@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "定时",
+  "usingComponents": {
+    "ec-canvas": "../../../components/ec-canvas/ec-canvas"
+  }
+}
